@@ -1,9 +1,10 @@
-# ratelimiter
-Simple, go-routine safe rate limiter by second in memory
+package main
 
-### Example
+import (
+	"fmt"
+	"limiter"
+)
 
-```go
 func main() {
 	limiter := limiter.NewRateLimiter()
 
@@ -24,4 +25,3 @@ func main() {
 		}
 	}
 }
-```
