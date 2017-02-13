@@ -114,6 +114,8 @@ func (l *RateLimiter) Limit(k string) bool {
 		return true
 	}
 	if !ok { //首次设置
+		sr.rate -= 1
+		sr.sec = time.Now().Unix()
 		l.cache.Set(k, sr)
 		return true
 	}
@@ -134,9 +136,9 @@ func (l *RateLimiter) Limit(k string) bool {
 			sr.sec = nowSec
 			if exist {
 				raw := newValue.(secondRate)
-				sr.rate = raw.baserate
+				sr.rate = raw.baserate - 1
 			} else {
-				sr.rate = sr.baserate
+				sr.rate = sr.baserate - 1
 			}
 		}
 
